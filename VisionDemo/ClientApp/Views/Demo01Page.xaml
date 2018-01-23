@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="ClientApp.Views.Demo01Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClientApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:ClientApp.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewmodels:Demo01PageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Fill="PaleGoldenrod" Grid.ColumnSpan="2" />
+        <TextBlock Style="{StaticResource HeaderTextBlockStyle}"  Grid.ColumnSpan="2" Text="Demo01 : Playing Cards" Margin="16" />
+
+        <CommandBar Grid.Row="1" Grid.ColumnSpan="2">
+            <AppBarButton Icon="Camera" Click="TakePicture_Click" />
+            <AppBarButton Icon="RotateCamera" Click="ChangeCamera_Click" />
+        </CommandBar>
+
+        <local:Camera x:Name="MyCamera" Stretch="Uniform" Background="Red" Grid.Column="0" Grid.Row="2" />
+        
+        <Image x:Name="PreviewImage" Stretch="Uniform"  Grid.Column="1" Grid.Row="2" />
+
+    </Grid>
+</Page>
