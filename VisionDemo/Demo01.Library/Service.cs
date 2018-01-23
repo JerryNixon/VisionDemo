@@ -16,7 +16,7 @@ namespace Demo01
         }
     }
 
-    public enum Cards { h1, h2, h3 }
+    public enum Cards { h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13 }
 
     public class Something
     {
