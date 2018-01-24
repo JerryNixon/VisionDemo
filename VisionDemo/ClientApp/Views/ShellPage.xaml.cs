@@ -24,7 +24,7 @@ namespace ClientApp.Views
     {
         public ShellPage()
         {
-            this.InitializeComponent();
+            //this.InitializeComponent();
         }
     }
 }

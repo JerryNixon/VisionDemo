@@ -10,12 +10,12 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <T10:NavViewEx SettingsPageType="views:SettingsPage" AlwaysShowHeader="False">
+        <!--<T10:NavViewEx SettingsPageType="views:SettingsPage" AlwaysShowHeader="False">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Add" Content="Demo01" T10:NavProperties.PageType="views:Demo01Page" T10:NavProperties.IsStartPage="True" />
                 <NavigationViewItem Icon="Add" Content="Demo02" T10:NavProperties.PageType="views:Demo02Page" />
             </NavigationView.MenuItems>
-        </T10:NavViewEx>
+        </T10:NavViewEx>-->
 
     </Grid>
 
