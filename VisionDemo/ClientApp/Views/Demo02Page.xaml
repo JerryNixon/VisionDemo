@@ -8,11 +8,18 @@
     xmlns:viewmodels="using:ClientApp.ViewModels"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <viewmodels:Demo02PageViewModel x:Name="ViewModel" />
-    </Page.DataContext>
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <CommandBar>
+            <CommandBar.Content>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Demo02" Margin="16,8" />
+            </CommandBar.Content>    
+        </CommandBar>
+        
     </Grid>
 </Page>

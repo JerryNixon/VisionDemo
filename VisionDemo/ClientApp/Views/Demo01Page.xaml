@@ -8,34 +8,55 @@
     xmlns:viewmodels="using:ClientApp.ViewModels"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <viewmodels:Demo01PageViewModel x:Name="ViewModel" />
-    </Page.DataContext>
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Rectangle Fill="PaleGoldenrod" Grid.ColumnSpan="2" />
-        <TextBlock Style="{StaticResource HeaderTextBlockStyle}"  Grid.ColumnSpan="2" Text="Demo01 : Playing Cards" Margin="16" />
-
-        <CommandBar Grid.Row="1" Grid.ColumnSpan="2">
+        <CommandBar>
+            <CommandBar.Content>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Demo02" Margin="16,8" />
+            </CommandBar.Content>
             <AppBarButton Icon="Camera" Click="TakePicture_Click" />
             <AppBarButton Icon="RotateCamera" Click="ChangeCamera_Click" />
         </CommandBar>
 
-        <local:Camera x:Name="MyCamera" Stretch="Uniform" Background="Red" Grid.Column="0" Grid.Row="2" />
+        <local:Camera x:Name="MyCamera" Stretch="Uniform" Background="Red" Grid.Column="0" Grid.Row="1" />
         
-        <Image x:Name="PreviewImage" Stretch="Uniform"  Grid.Column="1" Grid.Row="2" />
+        <Image x:Name="PreviewImage" Stretch="Uniform"  Grid.Column="1" Grid.Row="1" />
+
+        <Rectangle Grid.Row="1" Grid.Column="2" Fill="Gainsboro" />
+        <Viewbox Grid.Row="1" Grid.Column="2" Margin="16">
+            <StackPanel>
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Character}" 
+                                           FontFamily="Fonts/cards.ttf#Playing Cards" 
+                                           FontSize="144"
+                                           Foreground="Red"
+                                           />
+                                <TextBlock Text="=" VerticalAlignment="Center" FontSize="100" Margin="12,0" />
+                                <TextBlock Text="{Binding Value}" VerticalAlignment="Center" FontSize="100" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock x:Name="TotalValueTextBox" HorizontalAlignment="Right" Margin="0" FontSize="110" FontWeight="Bold" />
+            </StackPanel>
+        </Viewbox>
+
+        <TextBlock Text="{x:Bind Information}" Grid.Row="3" Grid.ColumnSpan="3" />
 
     </Grid>
 </Page>

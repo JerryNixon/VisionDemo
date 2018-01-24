@@ -80,6 +80,11 @@ namespace ClientApp.Views
             }
         }
 
+        internal Task ChangeCameraAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task StopPreviewAsync()
         {
             if (!_previewStarted)
@@ -109,7 +114,7 @@ namespace ClientApp.Views
 
         public async Task<StorageFile> TakePictureAsync()
         {
-            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("playing-cards.jpg", CreationCollisionOption.ReplaceExisting);
+            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("playing-cards.jpg", CreationCollisionOption.GenerateUniqueName);
             await _mediaCapture.CapturePhotoToStorageFileAsync(ImageEncodingProperties.CreateJpeg(), file);
             return file;
         }

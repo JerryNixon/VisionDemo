@@ -21,10 +21,5 @@ namespace ClientApp.Views
         {
             InitializeComponent();
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.OnNavigatedTo(e);
-        }
     }
 }
