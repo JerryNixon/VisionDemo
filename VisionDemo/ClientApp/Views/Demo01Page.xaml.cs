@@ -53,11 +53,11 @@ namespace ClientApp.Views
         private async System.Threading.Tasks.Task CallService(Windows.Storage.StorageFile file)
         {
             var service = new Demo01.Service();
-            var result = await service.RequestAsync(file);
+            var result = await service.PredictAsync(file);
             var cards = result.Cards.Select(card => new
             {
                 Character = card.GetCharacter(),
-                Value = Math.Min(((int)card), 10).ToString("D2"),
+                Value = Math.Min(card.Value, 10).ToString("D2"),
             });
             DataContext = cards;
             TotalValueTextBox.Text = cards.Sum(x => int.Parse(x.Value)).ToString("D2");
@@ -80,23 +80,23 @@ namespace ClientApp.Views
 
     public static class Extensions
     {
-        public static char GetCharacter(this Demo01.Cards card)
+        public static char GetCharacter(this Demo01.Models.CardInfo card)
         {
-            switch (card)
+            switch (card.Value)
             {
-                case Demo01.Cards.h1: return 'N';
-                case Demo01.Cards.h2: return 'O';
-                case Demo01.Cards.h3: return 'P';
-                case Demo01.Cards.h4: return 'Q';
-                case Demo01.Cards.h5: return 'R';
-                case Demo01.Cards.h6: return 'S';
-                case Demo01.Cards.h7: return 'T';
-                case Demo01.Cards.h8: return 'U';
-                case Demo01.Cards.h9: return 'V';
-                case Demo01.Cards.h10: return 'W';
-                case Demo01.Cards.h11: return 'X';
-                case Demo01.Cards.h12: return 'Y';
-                case Demo01.Cards.h13: return 'Z';
+                case 01 when (card.Suit == Demo01.Models.Suits.Hearts): return 'N';
+                case 02 when (card.Suit == Demo01.Models.Suits.Hearts): return 'O';
+                case 03 when (card.Suit == Demo01.Models.Suits.Hearts): return 'P';
+                case 04 when (card.Suit == Demo01.Models.Suits.Hearts): return 'Q';
+                case 05 when (card.Suit == Demo01.Models.Suits.Hearts): return 'R';
+                case 06 when (card.Suit == Demo01.Models.Suits.Hearts): return 'S';
+                case 07 when (card.Suit == Demo01.Models.Suits.Hearts): return 'T';
+                case 08 when (card.Suit == Demo01.Models.Suits.Hearts): return 'U';
+                case 09 when (card.Suit == Demo01.Models.Suits.Hearts): return 'V';
+                case 10 when (card.Suit == Demo01.Models.Suits.Hearts): return 'W';
+                case 11 when (card.Suit == Demo01.Models.Suits.Hearts): return 'X';
+                case 12 when (card.Suit == Demo01.Models.Suits.Hearts): return 'Y';
+                case 13 when (card.Suit == Demo01.Models.Suits.Hearts): return 'Z';
                 default:
                     throw new NotSupportedException(card.ToString());
             }
