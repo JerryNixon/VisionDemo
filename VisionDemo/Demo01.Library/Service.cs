@@ -1,34 +1,29 @@
-﻿using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Windows.Storage;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Demo01.Models;
 using Demo01.Json;
+using System.Collections.Generic;
 
 namespace Demo01
 {
     public class Service
     {
-        private CognitiveHelper _helper;
-
-        public Service()
+        public async Task<IEnumerable<CardInfo>> PredictAsync(StorageFile file)
         {
-            _helper = new CognitiveHelper(Settings.PredictionKey, Settings.Endpoint);
-        }
+            var key = Settings.PredictionKey;
+            var url = Settings.Endpoint;
+            var cogs = new CognitiveHelper(key, url);
 
-        public async Task<PredictionResult> PredictAsync(StorageFile file)
-        {
-            var bytes = await _helper.ToByteArrayAsync(file);
-
-            var json = await _helper.PostToServiceAsync(bytes);
-
+            var bytes = await cogs.ToByteArrayAsync(file);
+            var json = await cogs.PostToServiceAsync(bytes);
             var root = JsonConvert.DeserializeObject<CognitiveRoot>(json);
 
-            var result = new PredictionResult(root.Predictions.Select(x => x));
-
-            return result;
+            var cards = root.Predictions
+                .Select(x => new CardInfo(x))
+                .Where(x => x.Tag.IsCardTag());
+            return cards;
         }
     }
 }

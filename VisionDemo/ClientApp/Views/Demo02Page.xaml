@@ -6,20 +6,136 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:ClientApp.ViewModels"
+    xmlns:models="using:Demo01.Models"
     mc:Ignorable="d">
+    
+    <Page.Resources>
+        <FontFamily x:Key="CardFont">Fonts/cards.ttf#Playing Cards</FontFamily>
+    </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="#FFEAEAEA">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="1000" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
         <CommandBar>
             <CommandBar.Content>
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Demo02" Margin="16,8" />
-            </CommandBar.Content>    
+            </CommandBar.Content>
+            <AppBarButton Icon="Camera" />
         </CommandBar>
+
+        <Rectangle Fill="#FF1F1F1F" Grid.Row="1" Grid.Column="0" />
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+
+            <Viewbox>
+
+                <Grid Margin="64">
+
+                    <Grid x:Name="Camera" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,50,0,0">
+                        <Rectangle Fill="Red" Width="425" Height="245" RenderTransformOrigin="0.5,0.5" >
+                            <Rectangle.RenderTransform>
+                                <CompositeTransform Rotation="-9" TranslateY="14" TranslateX="5" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Path Width="558.56" Height="475.472" Stretch="Fill" Fill="#FF5A5AA4" Data="M -369.021,234.383L 129.891,156.209L 125.507,128.231L 16.8307,145.259L -28.4217,121.295L -222.059,151.636L -266.707,189.686L -373.405,206.404L -369.021,234.383 Z M -313.758,587.079L 185.154,508.906L 180.666,480.261L -318.247,558.435L -313.758,587.079 Z M 45.9577,117.954L 86.4634,111.608L 88.7524,126.216L 48.2467,132.563L 45.9577,117.954 Z M -367.473,244.262L 131.439,166.089L 179.272,471.364L -319.641,549.537L -367.473,244.262 Z M -317.133,274.838L -280.137,510.957L 134.801,445.942L 97.8038,209.823L -317.133,274.838 Z "/>
+                    </Grid>
+
+                    <Grid x:Name="Photograph" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,150,0,0" d:IsHidden="True">
+                        <Rectangle Width="410" Height="285" RenderTransformOrigin="0.5,0.5" Fill="Gray">
+                            <Rectangle.RenderTransform>
+                                <CompositeTransform Rotation="6.1" TranslateY="-32" TranslateX="4" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Image Width="410" Height="285" RenderTransformOrigin="0.5,0.5">
+                            <Image.RenderTransform>
+                                <CompositeTransform Rotation="6.1" TranslateY="-32" TranslateX="4" />
+                            </Image.RenderTransform>
+                        </Image>
+                        <Path Width="465.667" Height="418.642" Stretch="Fill" Data="F1 M 587.291,296.679L 1012.83,342.474L 972.709,715.321L 547.166,669.526L 587.291,296.679 Z M 596.623,312.77L 566.556,592.156L 971.219,635.705L 1001.29,356.318L 596.623,312.77 Z ">
+                            <Path.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF9C9C9C"/>
+                                    <GradientStop Color="White" Offset="0.632"/>
+                                    <GradientStop Color="#FFB6B6B6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                        </Path>
+                    </Grid>
+
+                </Grid>
+
+            </Viewbox>
+
+            <ItemsControl FontFamily="Playing Cards" Padding="32">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="200" Height="80" Margin="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <Rectangle Margin="7,1,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="76" Width="56" Fill="White" />
+                                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Playing Cards" Text="{Binding}" FontSize="64" Foreground="Red" TextAlignment="Center" />
+                            </Grid>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Grid.Column="1" TextAlignment="Center" FontFamily="Segoe UI">
+                                <Run Text="{Binding}" FontSize="12" />
+                                <LineBreak />
+                                <Run Text="PROBABILITY" FontSize="12" FontWeight="Light" />
+                                <LineBreak />
+                                <Run Text="12.0000123" FontWeight="Bold" />
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <x:String>N</x:String>
+                <x:String>O</x:String>
+                <x:String>P</x:String>
+                <x:String>Q</x:String>
+                <x:String>R</x:String>
+                <x:String>S</x:String>
+                <x:String>T</x:String>
+                <x:String>U</x:String>
+                <x:String>V</x:String>
+                <x:String>W</x:String>
+                <x:String>X</x:String>
+                <x:String>Y</x:String>
+                <x:String>Z</x:String>
+            </ItemsControl>
+
+        </StackPanel>
+
         
+
+        <Rectangle Fill="DarkGreen" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Width="500"/>
+
+        <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="3">
+            <ItemsControl>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <x:String>N</x:String>        
+            </ItemsControl>
+        </Grid>
+
+        <TextBlock Text="Test" Grid.Row="2" Margin="8" />
+
     </Grid>
 </Page>

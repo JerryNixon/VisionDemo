@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClientApp.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,16 +30,28 @@ namespace ClientApp.Views
 
         private async void Demo01Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Information = "Waiting on camera to initialize.";
+
             await MyCamera.StartPreviewAsync();
+
+            Information = "Waiting to take picture.";
         }
 
         private async void TakePicture_Click(object sender, RoutedEventArgs e)
         {
+            var s = new Stopwatch();
+            s.Start();
+
             try
             {
+                Information = "Taking picture.";
+
                 IsEnabled = false;
                 var file = await MyCamera.TakePictureAsync();
                 PreviewImage.Source = new BitmapImage(new Uri(file.Path, UriKind.Absolute));
+
+                Information = "Waiting on service.";
+
                 await CallService(file);
             }
             catch
@@ -47,6 +61,8 @@ namespace ClientApp.Views
             finally
             {
                 IsEnabled = true;
+
+                Information = $"Completed in {s.Elapsed.ToString()}";
             }
         }
 
@@ -54,13 +70,17 @@ namespace ClientApp.Views
         {
             var service = new Demo01.Service();
             var result = await service.PredictAsync(file);
-            var cards = result.Cards.Select(card => new
+            var sorted = result.OrderBy(x => x.Probility);
+            var filtered = sorted.Where(x => x.Probility >= .07);
+            var cards = filtered.Select(card => new
             {
+                Card = card,
+                Probability = card.Probility,
                 Character = card.GetCharacter(),
-                Value = Math.Min(card.Value, 10).ToString("D2"),
+                Value = card.Value.GetValueString(),
             });
             DataContext = cards;
-            TotalValueTextBox.Text = cards.Sum(x => int.Parse(x.Value)).ToString("D2");
+            TotalValueTextBox.Text = cards.Sum(x => x.Card.Value).GetValueString();
         }
 
         private async void ChangeCamera_Click(object sender, RoutedEventArgs e)
@@ -78,28 +98,4 @@ namespace ClientApp.Views
                 typeof(Demo01Page), new PropertyMetadata(string.Empty));
     }
 
-    public static class Extensions
-    {
-        public static char GetCharacter(this Demo01.Models.CardInfo card)
-        {
-            switch (card.Value)
-            {
-                case 01 when (card.Suit == Demo01.Models.Suits.Hearts): return 'N';
-                case 02 when (card.Suit == Demo01.Models.Suits.Hearts): return 'O';
-                case 03 when (card.Suit == Demo01.Models.Suits.Hearts): return 'P';
-                case 04 when (card.Suit == Demo01.Models.Suits.Hearts): return 'Q';
-                case 05 when (card.Suit == Demo01.Models.Suits.Hearts): return 'R';
-                case 06 when (card.Suit == Demo01.Models.Suits.Hearts): return 'S';
-                case 07 when (card.Suit == Demo01.Models.Suits.Hearts): return 'T';
-                case 08 when (card.Suit == Demo01.Models.Suits.Hearts): return 'U';
-                case 09 when (card.Suit == Demo01.Models.Suits.Hearts): return 'V';
-                case 10 when (card.Suit == Demo01.Models.Suits.Hearts): return 'W';
-                case 11 when (card.Suit == Demo01.Models.Suits.Hearts): return 'X';
-                case 12 when (card.Suit == Demo01.Models.Suits.Hearts): return 'Y';
-                case 13 when (card.Suit == Demo01.Models.Suits.Hearts): return 'Z';
-                default:
-                    throw new NotSupportedException(card.ToString());
-            }
-        }
-    }
 }

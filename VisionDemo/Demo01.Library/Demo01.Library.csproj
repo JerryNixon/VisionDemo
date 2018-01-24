@@ -110,7 +110,7 @@
     <Compile Include="Json\CognitiveRoot.cs" />
     <Compile Include="Json\Prediction.cs" />
     <Compile Include="Models\CardInfo.cs" />
-    <Compile Include="Models\PredictionResult.cs" />
+    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\Tags.enum.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using Demo01.Json;
 
 namespace Demo01.Models
 {
@@ -9,30 +10,26 @@ namespace Demo01.Models
 
     public class CardInfo
     {
-        public CardInfo(string tag)
+        public CardInfo()
         {
-            Tag = Enum.Parse<Tags>(tag);
-            Suit = Suits.Hearts;
-            switch (Tag)
-            {
-                case Tags.Ace:
-                    Value = 1;
-                    break;
-                case Tags.Jack:
-                    Value = 11;
-                    break;
-                case Tags.Queen:
-                    Value = 12;
-                    break;
-                case Tags.King:
-                    Value = 13;
-                    break;
-                default:
-                    throw new NotSupportedException(Tag.ToString());
-            }
+
         }
-        public Suits Suit { get; }
-        public Tags Tag { get; }
-        public int Value { get; }
+
+        public CardInfo(Prediction prediction)
+        {
+            Tag = prediction.Tag.ToTagsEnum();
+            Suit = Suits.Hearts;
+            Probility = prediction.Probability;
+        }
+
+        public Suits Suit { get; set;  }
+        public double Probility { get; set; }
+        public Tags Tag { get; set;  }
+        public int Value => Math.Min(10, (int)Tag);
+
+        public override string ToString()
+        {
+            return $"{Tag} of {Suit} @ {Probility}";
+        }
     }
 }

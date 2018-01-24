@@ -43,11 +43,19 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Character}" 
                                            FontFamily="Fonts/cards.ttf#Playing Cards" 
-                                           FontSize="144"
+                                           FontSize="100"
                                            Foreground="Red"
                                            />
-                                <TextBlock Text="=" VerticalAlignment="Center" FontSize="100" Margin="12,0" />
-                                <TextBlock Text="{Binding Value}" VerticalAlignment="Center" FontSize="100" />
+                                <StackPanel VerticalAlignment="Top">
+                                    <TextBlock VerticalAlignment="Center" TextAlignment="Center" Opacity=".5">
+                                        <Run Text="Probability" FontSize="15" />
+                                        <LineBreak />
+                                        <Run Text="{Binding Probability}" FontSize="20" FontWeight="light" />
+                                    </TextBlock>
+                                    <TextBlock VerticalAlignment="Center" TextAlignment="Center">
+                                        <Run Text="{Binding Value}" FontSize="50" FontWeight="Bold" />
+                                    </TextBlock>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -56,7 +64,8 @@
             </StackPanel>
         </Viewbox>
 
-        <TextBlock Text="{x:Bind Information}" Grid.Row="3" Grid.ColumnSpan="3" />
+        <Rectangle Grid.Row="3" Grid.ColumnSpan="3" Fill="Gainsboro" />
+        <TextBlock Text="{x:Bind Information, Mode=OneWay}" Grid.Row="3" Grid.ColumnSpan="3" Margin="16" />
 
     </Grid>
 </Page>

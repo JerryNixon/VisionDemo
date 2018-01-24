@@ -12,5 +12,10 @@ namespace Demo01.Json
 
         [JsonProperty("Probability")]
         public double Probability { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Tag} @ {Probability}";
+        }
     }
 }

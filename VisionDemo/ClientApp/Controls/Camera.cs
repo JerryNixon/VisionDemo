@@ -69,6 +69,8 @@ namespace ClientApp.Views
 
                 var properties = _mediaCapture.VideoDeviceController.GetAvailableMediaStreamProperties(MediaStreamType.Photo);
                 var value = properties.Aggregate((i1, i2) => (i1 as VideoEncodingProperties).Width > (i2 as VideoEncodingProperties).Width ? i1 : i2);
+                (value as VideoEncodingProperties).Height = 600;
+                (value as VideoEncodingProperties).Width = 800;
                 await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.Photo, value);
                 await _mediaCapture.VideoDeviceController.ExposureControl.SetAutoAsync(true);
 

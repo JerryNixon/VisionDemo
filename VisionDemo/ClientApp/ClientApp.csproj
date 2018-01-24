@@ -105,6 +105,7 @@
     <Compile Include="Views\Demo02Page.xaml.cs">
       <DependentUpon>Demo02Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
